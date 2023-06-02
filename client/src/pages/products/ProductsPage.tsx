@@ -16,7 +16,9 @@ const ProductsPage:React.FC = () => {
   const fetchProductsData = async (): Promise<void> => {
     setIsLoading(true);
     try {
-      const res = await fetch("/v1/products");
+      const res = await fetch(
+        `${import.meta.env.VITE_API_URL}/v1/products`
+      );
       if (res.ok) {
         const data = await res.json();
         setProducts(data.products);
