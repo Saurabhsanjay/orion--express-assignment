@@ -1,0 +1,85 @@
+.main{
+   padding: 20px 20px;
+   
+}
+
+.table {
+ font-family: 'Inter', sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+  border-top: gray;
+  background-color: white;
+  
+
+}
+
+th,
+td {
+  text-align: left;
+  padding: 10px;
+  border-bottom: 1px solid #cccc;
+}
+
+
+
+.productCell{
+
+    vertical-align: middle;
+}
+
+.contentWrapper{
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 10px;
+}
+.contentWrapper img{
+
+background-color:#e8eef2;
+border-radius: 4px;
+padding: 10px;
+
+}
+
+.productName{
+font-size: 16px;
+}
+.QtyInput {
+ background-color:#e8eef2;
+  padding: 8px;
+  border: none;
+  border-radius: 4px;
+  width: 60px;
+}
+.Price{
+    color: #0396c1;
+    font-weight: bold;
+}
+
+.button {
+  padding: 7px;
+  width: 100px;
+  color: white;
+  font-weight: bold;
+  background-color: #0396c1;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.button:hover {
+  background-color: #0578a8; 
+}
+
+.filledStar{
+    color: blue;
+}
+.emptyStar{
+border-color: blue;
+}
+.sortButton{
+    padding: 5px;
+    border: none;
+    color: black;
+    font-size: 16px;
+}
