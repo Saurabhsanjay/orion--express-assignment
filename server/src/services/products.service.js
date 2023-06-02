@@ -1,12 +1,11 @@
 const Product=require('../models/product.model')
 
-//getall product service logic
-async function getAllProducts() {
+async function getAllProducts(offset, limit) {
   try {
-    const products = await Product.find();
+    const products = await Product.find().skip(offset).limit(limit);
     return products;
   } catch (error) {
-    console.log(error)
+    console.log(error);
     throw new Error("Failed to fetch products");
   }
 }

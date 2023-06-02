@@ -5,11 +5,14 @@ import { Product } from "./types/products";
 
 //interfaces
 interface Props{
-    products:Product[]
+    products:Product[];
+   
 }
 
 
 const ProductsList = ({ products }: Props) => {
+ 
+  
   //states
   const [sortOrderRating, setSortOrderRating] = useState<"asc" | "desc">("asc");
   const [sortOrderPrice, setSortOrderPrice] = useState<"asc" | "desc">("asc");
@@ -60,6 +63,7 @@ const ProductsList = ({ products }: Props) => {
       return b.price - a.price;
     }
   });
+ 
 
   //jsx
   return (
@@ -101,9 +105,9 @@ const ProductsList = ({ products }: Props) => {
             </tr>
           </thead>
           <tbody>
-            {sortedProductsByPrice?.map((el, index: number) => (
+            {sortedProductsByPrice?.map((el) => (
               <tr key={el.id}>
-                <td>{index + 1}</td>
+                <td>{el.id}</td>
                 <td className={styles.productCell}>
                   <div className={styles.contentWrapper}>
                     <img

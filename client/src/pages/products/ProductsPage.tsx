@@ -13,56 +13,70 @@ const ProductsPage:React.FC = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   //fetching the data from server
-  const fetchProductsData = async (): Promise<void> => {
-    setIsLoading(true);
-    try {
-      const res = await fetch(
-        `${import.meta.env.VITE_API_URL}/v1/products`
-      );
-      if (res.ok) {
-        const data = await res.json();
-        setProducts(data.products);
-      } else {
-        throw new Error("Failed to fetch products");
-      }
-    } catch (error) {
-      console.log(error);
-    } finally {
-      setIsLoading(false);
+const fetchProductsData = async (offset: number, limit: number): Promise<void> => {
+  setIsLoading(true);
+  try {
+    const res = await fetch(
+      `${import.meta.env.VITE_API_URL}/v1/products?offset=${offset}&limit=${limit}`
+    );
+    if (res.ok) {
+      const data = await res.json();
+    setProducts(data.products);
+    } else {
+      throw new Error("Failed to fetch products");
     }
-  };
+  } catch (error) {
+    console.log(error);
+  } finally {
+    setIsLoading(false);
+  }
+};
+
 
   //for rendering the data
-  useEffect(() => {
-    fetchProductsData();
-  }, []);
+useEffect(() => {
+  fetchProductsData(0, limit);
+}, []);
 
-  //for INFINITE_SCROLL
-  useEffect(() => {
-    const handleScroll = () => {
-      const { scrollTop, clientHeight, scrollHeight } =
-        document.documentElement;
-      if (scrollTop + clientHeight >= scrollHeight) {
-        // User reached the bottom of the page
-        setIsLoading(true);
-        setTimeout(() => {
-          setLimit((prevLimit) => prevLimit + 20);
-          setIsLoading(false);
-        }, 2000);
-      }
-    };
+  //for debounce
+const debounce = (func: Function, delay: number) => {
+  let timeoutId: any;
+  return (...args: any[]) => {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => {
+      func(...args);
+    }, delay);
+  };
+};
 
-    window.addEventListener("scroll", handleScroll);
 
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
+//for infinite scroll
+useEffect(() => {
+  const handleScroll = () => {
+    const { scrollTop, clientHeight, scrollHeight } = document.documentElement;
+    const isScrolledToBottom = scrollTop + clientHeight >= scrollHeight;
+
+    if (isScrolledToBottom) {
+        setLimit((prevLimit) => prevLimit + 20);
+        fetchProductsData(limit, 20);
+    }
+    
+  };
+
+  const debouncedHandleScroll = debounce(handleScroll, 1000); 
+
+  window.addEventListener("scroll", debouncedHandleScroll);
+  return () => window.removeEventListener("scroll", debouncedHandleScroll);
+}, [limit]);
+
+
+
 
   //for resetting all the filters
   const resetFilters = () => {
     setSelectedBrand("");
     setSelectedCategory("");
+    setSearchQuery('');
   };
 
   //for category filter
@@ -80,7 +94,8 @@ const ProductsPage:React.FC = () => {
   };
 
   // Filter products based on the selected category and search query
-  const filteredProducts = products.slice(0, limit).filter((product) => {
+  const filteredProducts = products.slice(0, limit).filter((product,i) => {
+    if (i >= limit) return false;
     if (selectedCategory && product.category !== selectedCategory) {
       return false;
     }
