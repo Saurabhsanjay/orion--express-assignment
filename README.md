@@ -1,7 +1,5 @@
 <h3 align="center">Infinite Scrolling</h3>
 
-
-
 <br />
 
 <h2 align="center">🖥️ Tech Stack</h2>
@@ -65,18 +63,15 @@ Boat Clone is MERN Stack e-commerce web application that allows you to buy Earph
 
 
 
-## Glimpses of Infinite Scrolling 🙈 :
+## Glimpse of Infinite Scrolling 🙈 :
 
 
 <table>
   <tr>
-    <td><img src="./client/public/githubimages/byCat.png" alt="home" /></td>
-    <td><img src="./client/public/githubimages/sec1.png" alt="coupons" /></td>
+    <td><img src="./client/public/img1.png" alt="home" /></td>
+    
   </tr>
-  <tr>
-    <td><img src="./client/public/githubimages/superhero.png" alt="signup" /></td>
-    <td><img src="./client/public/githubimages/trimmer.png" alt="login" /></td>
-  </tr>
+
  
 </table>
 
