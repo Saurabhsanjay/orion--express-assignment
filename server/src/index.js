@@ -4,7 +4,7 @@ const { connectToMongoDB } = require("../src/db/connection");
 const express = require("express");
 const productRoutes = require("./routes/products.route");
 const morgan = require("morgan");
-
+require("dotenv").config({ path: "./.env" });
 
 const app = express();
 
